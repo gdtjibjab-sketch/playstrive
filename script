@@ -1,0 +1,64 @@
+const liveWinsFeed = document.getElementById("liveWinsFeed");
+
+const names = [
+  "DerekO", "SavageK", "QueenB", "MikeD", "ClutchAJ",
+  "NikoX", "Ace99", "NovaRush", "BlazePro", "KaiFX",
+  "RogueLive", "JettElite", "SkyeWin", "ZaneUp"
+];
+
+const games = ["Solitaire", "Blitz", "Shootout", "Tower"];
+
+function rand(arr) {
+  return arr[Math.floor(Math.random() * arr.length)];
+}
+
+// weighted amounts (more realistic)
+function getAmount() {
+  const r = Math.random();
+
+  if (r < 0.6) return Math.floor(Math.random() * 30) + 5;      // $5–$35
+  if (r < 0.9) return Math.floor(Math.random() * 50) + 35;     // $35–$85
+  return Math.floor(Math.random() * 40) + 80;                  // $80–$120
+}
+
+function createCard() {
+  const el = document.createElement("div");
+  el.className = "live-card is-entering";
+
+  el.innerHTML = `
+    <strong>${rand(names)}</strong>
+    <span>won in ${rand(games)}</span>
+    <em>$${getAmount()}</em>
+  `;
+
+  requestAnimationFrame(() => {
+    el.classList.remove("is-entering");
+  });
+
+  return el;
+}
+
+function seed() {
+  for (let i = 0; i < 5; i++) {
+    liveWinsFeed.appendChild(createCard());
+  }
+}
+
+function rotate() {
+  const first = liveWinsFeed.firstChild;
+
+  first.style.opacity = "0";
+  first.style.transform = "translateY(-10px)";
+
+  setTimeout(() => {
+    first.remove();
+    liveWinsFeed.appendChild(createCard());
+  }, 300);
+}
+
+seed();
+
+// random timing (IMPORTANT for realism)
+setInterval(() => {
+  rotate();
+}, 1800 + Math.random() * 1200);
