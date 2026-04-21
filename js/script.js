@@ -2,24 +2,28 @@ document.addEventListener("DOMContentLoaded", function () {
   const track = document.getElementById("liveWinsTrack");
   if (!track) return;
 
-  const names = [
-    "DerekO",
-    "SavageK",
-    "QueenB",
-    "MikeD",
-    "ClutchAJ",
-    "NikoX",
-    "Ace99",
-    "NovaRush",
-    "BlazePro",
-    "KaiFX",
-    "RogueLive",
-    "JettElite",
-    "SkyeWin",
-    "ZaneUp",
-    "BrickBoss",
-    "SoloKing"
-  ];
+const names = [
+  "DerekO","SavageK","QueenB","MikeD","ClutchAJ","NikoX","Ace99","NovaRush",
+  "BlazePro","KaiFX","RogueLive","JettElite","SkyeWin","ZaneUp","BrickBoss","SoloKing",
+
+  "xXBlazeXx","TiltMaster","QuickHands","CashSniper","LuckyFlip","GridKing",
+  "WinStreak","SharpEdge","NoTilt","ColdRun","HotHand","AlphaPlay",
+
+  "MoneyMoves","CashFlowX","StackBuilder","BankRoller","FastPayout","ChipStacker",
+  "BigWinEnergy","ProfitMode","LowRiskHighIQ","EdgePlayer","ClutchMoney","QuickCash",
+
+  "ETHKing","BTCBandit","DeFiDerek","CryptoClutch","TokenSniper","ChainRunner",
+  "GasFeeGamer","AltcoinAce","BlockBoss","LedgerLive","SatoshiSpin","MetaWallet",
+
+  "SoloGrinder","NightPlayer","DayTraderX","FocusMode","ZeroMistakes","HighIQPlay",
+  "CalculatedWin","MindGame","PrecisionX","NextMove","OutplayPro","NoLuckNeeded",
+
+  "WinMachine","PlayToWin","FastHands","SharpMind","ElitePlayer","TopTierX",
+  "SkillGap","OutplayKing","ClutchMode","FinalRound","LastStand","GameCloser",
+
+  "BrickBreaker","TileMaster","StackAttack","GridRunner","SpeedSolver","PerfectRun",
+  "ComboKing","ChainBreaker","ScoreHunter","PointStacker","PuzzlePro","RapidFire"
+];
 
   const games = ["Brick", "Solitaire"];
 
