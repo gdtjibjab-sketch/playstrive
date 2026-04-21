@@ -44,8 +44,8 @@ a {
   height: 42px;
   width: auto;
   display: block;
+  flex-shrink: 0;
 }
-
 .topbar {
   position: sticky;
   top: 0;
@@ -70,10 +70,16 @@ a {
   font-weight: 900;
   letter-spacing: 0.08em;
   font-size: 28px;
+  min-width: 0;
 }
 
 .brand span:last-child {
   color: var(--lime);
+}
+
+.brand-wordmark {
+  white-space: nowrap;
+  line-height: 1;
 }
 
 .nav-links {
