@@ -1,7 +1,6 @@
-document.addEventListener("DOMContentLoaded", () => {
-  const liveWinsFeed = document.getElementById("liveWinsFeed");
-
-  if (!liveWinsFeed) return;
+document.addEventListener("DOMContentLoaded", function () {
+  const track = document.getElementById("liveWinsTrack");
+  if (!track) return;
 
   const names = [
     "DerekO",
@@ -30,7 +29,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
   function getAmount() {
     const r = Math.random();
-
     if (r < 0.6) return Math.floor(Math.random() * 31) + 5;
     if (r < 0.9) return Math.floor(Math.random() * 51) + 35;
     return Math.floor(Math.random() * 41) + 80;
@@ -38,44 +36,46 @@ document.addEventListener("DOMContentLoaded", () => {
 
   function createCard() {
     const el = document.createElement("div");
-    el.className = "live-card is-entering";
-
+    el.className = "live-card";
     el.innerHTML = `
       <strong>${rand(names)}</strong>
       <span>won in ${rand(games)}</span>
       <em>$${getAmount()}</em>
     `;
-
-    requestAnimationFrame(() => {
-      el.classList.remove("is-entering");
-    });
-
     return el;
   }
 
-  function seed() {
-    liveWinsFeed.innerHTML = "";
-
-    for (let i = 0; i < 5; i++) {
-      liveWinsFeed.appendChild(createCard());
+  function seedInitialCards() {
+    for (let i = 0; i < 8; i++) {
+      track.appendChild(createCard());
     }
   }
 
-  function rotate() {
-    const first = liveWinsFeed.firstElementChild;
-    if (!first) return;
+  seedInitialCards();
 
-    first.style.opacity = "0";
-    first.style.transform = "translateY(-10px)";
+  let offset = 0;
+  const speed = 0.45; // pixels per frame, increase for faster movement
 
-    setTimeout(() => {
-      if (first.parentNode) {
-        first.remove();
+  function animate() {
+    offset += speed;
+    track.style.transform = `translateX(-${offset}px)`;
+
+    const firstCard = track.firstElementChild;
+    if (firstCard) {
+      const firstStyle = getComputedStyle(track);
+      const gap = parseFloat(firstStyle.columnGap || firstStyle.gap || 10);
+      const firstCardWidth = firstCard.getBoundingClientRect().width + gap;
+
+      if (offset >= firstCardWidth) {
+        offset -= firstCardWidth;
+        track.style.transform = `translateX(-${offset}px)`;
+        firstCard.remove();
+        track.appendChild(createCard());
       }
-      liveWinsFeed.appendChild(createCard());
-    }, 300);
+    }
+
+    requestAnimationFrame(animate);
   }
 
-  seed();
-  setInterval(rotate, 2200);
+  requestAnimationFrame(animate);
 });
