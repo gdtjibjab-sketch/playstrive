@@ -1,79 +1,78 @@
-const liveWinsFeed = document.getElementById("liveWinsFeed");
+document.addEventListener("DOMContentLoaded", () => {
+  const liveWinsFeed = document.getElementById("liveWinsFeed");
 
-const names = [
-  "DerekO",
-  "SavageK",
-  "QueenB",
-  "MikeD",
-  "ClutchAJ",
-  "NikoX",
-  "Ace99",
-  "NovaRush",
-  "BlazePro",
-  "KaiFX",
-  "RogueLive",
-  "JettElite",
-  "SkyeWin",
-  "ZaneUp"
-];
-
-const games = ["Solitaire", "Blitz", "Shootout", "Tower"];
-
-function rand(arr) {
-  return arr[Math.floor(Math.random() * arr.length)];
-}
-
-function getAmount() {
-  const r = Math.random();
-
-  if (r < 0.6) return Math.floor(Math.random() * 31) + 5;   // 5-35
-  if (r < 0.9) return Math.floor(Math.random() * 51) + 35;  // 35-85
-  return Math.floor(Math.random() * 41) + 80;               // 80-120
-}
-
-function createCard() {
-  const el = document.createElement("div");
-  el.className = "live-card is-entering";
-
-  el.innerHTML = `
-    <strong>${rand(names)}</strong>
-    <span>won in ${rand(games)}</span>
-    <em>$${getAmount()}</em>
-  `;
-
-  requestAnimationFrame(() => {
-    el.classList.remove("is-entering");
-  });
-
-  return el;
-}
-
-function seed() {
   if (!liveWinsFeed) return;
 
-  for (let i = 0; i < 5; i++) {
-    liveWinsFeed.appendChild(createCard());
+  const names = [
+    "DerekO",
+    "SavageK",
+    "QueenB",
+    "MikeD",
+    "ClutchAJ",
+    "NikoX",
+    "Ace99",
+    "NovaRush",
+    "BlazePro",
+    "KaiFX",
+    "RogueLive",
+    "JettElite",
+    "SkyeWin",
+    "ZaneUp",
+    "BrickBoss",
+    "SoloKing"
+  ];
+
+  const games = ["Brick", "Solitaire"];
+  let intervalId = null;
+
+  function rand(arr) {
+    return arr[Math.floor(Math.random() * arr.length)];
   }
-}
 
-function rotate() {
-  if (!liveWinsFeed || !liveWinsFeed.firstElementChild) return;
+  function getAmount() {
+    const r = Math.random();
+    if (r < 0.6) return Math.floor(Math.random() * 31) + 5;   // 5-35
+    if (r < 0.9) return Math.floor(Math.random() * 51) + 35;  // 35-85
+    return Math.floor(Math.random() * 41) + 80;               // 80-120
+  }
 
-  const first = liveWinsFeed.firstElementChild;
+  function createCard() {
+    const el = document.createElement("div");
+    el.className = "live-card is-entering";
 
-  first.style.opacity = "0";
-  first.style.transform = "translateY(-10px)";
+    el.innerHTML = `
+      <strong>${rand(names)}</strong>
+      <span>won in ${rand(games)}</span>
+      <em>$${getAmount()}</em>
+    `;
 
-  setTimeout(() => {
-    if (first.parentNode) {
-      first.remove();
+    requestAnimationFrame(() => {
+      el.classList.remove("is-entering");
+    });
+
+    return el;
+  }
+
+  function seed() {
+    liveWinsFeed.innerHTML = "";
+    for (let i = 0; i < 5; i++) {
+      liveWinsFeed.appendChild(createCard());
     }
-    liveWinsFeed.appendChild(createCard());
-  }, 300);
-}
+  }
 
-seed();
+  function rotate() {
+    const first = liveWinsFeed.firstElementChild;
+    if (!first) return;
 
-setInterval(() => {
-  rotate();
-}, 2200);
+    first.style.opacity = "0";
+    first.style.transform = "translateY(-10px)";
+
+    setTimeout(() => {
+      if (first.parentNode) first.remove();
+      liveWinsFeed.appendChild(createCard());
+    }, 300);
+  }
+
+  seed();
+  intervalId = setInterval(rotate, 2200);
+});
