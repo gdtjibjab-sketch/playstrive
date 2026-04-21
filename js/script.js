@@ -31,12 +31,13 @@ const names = [
     return arr[Math.floor(Math.random() * arr.length)];
   }
 
-  function getAmount() {
-    const r = Math.random();
-    if (r < 0.6) return Math.floor(Math.random() * 31) + 5;
-    if (r < 0.9) return Math.floor(Math.random() * 51) + 35;
-    return Math.floor(Math.random() * 41) + 80;
-  }
+function getAmount() {
+  const r = Math.random();
+
+  if (r < 0.65) return Math.floor(Math.random() * 30) + 5;     // $5–35
+  if (r < 0.9) return Math.floor(Math.random() * 60) + 35;     // $35–95
+  return Math.floor(Math.random() * 200) + 100;                // $100–300 (rare big win)
+}
 
   function createCard() {
     const el = document.createElement("div");
