@@ -1,7 +1,6 @@
 :root {
   --bg: #050505;
   --panel: rgba(255, 255, 255, 0.05);
-  --panel-strong: rgba(255, 255, 255, 0.08);
   --line: rgba(255, 255, 255, 0.1);
   --text: #ffffff;
   --muted: #a1a1aa;
@@ -40,12 +39,6 @@ a {
   margin: 0 auto;
 }
 
-.logo {
-  height: 42px;
-  width: auto;
-  display: block;
-  flex-shrink: 0;
-}
 .topbar {
   position: sticky;
   top: 0;
@@ -60,7 +53,7 @@ a {
   align-items: center;
   justify-content: space-between;
   padding: 18px 0;
-  gap: 16px;
+  gap: 20px;
 }
 
 .brand {
@@ -71,15 +64,23 @@ a {
   letter-spacing: 0.08em;
   font-size: 28px;
   min-width: 0;
+  flex-shrink: 0;
 }
 
-.brand span:last-child {
-  color: var(--lime);
+.logo {
+  height: 42px;
+  width: auto;
+  display: block;
+  flex-shrink: 0;
 }
 
 .brand-wordmark {
   white-space: nowrap;
   line-height: 1;
+}
+
+.brand-wordmark span {
+  color: var(--lime);
 }
 
 .nav-links {
@@ -88,12 +89,14 @@ a {
   color: #d4d4d8;
   font-weight: 600;
   font-size: 14px;
+  flex-shrink: 0;
 }
 
 .nav-actions {
   display: flex;
   gap: 12px;
   align-items: center;
+  flex-shrink: 0;
 }
 
 .btn {
@@ -502,22 +505,6 @@ a {
   font-weight: 950;
 }
 
-@media (max-width: 1100px) {
-  .live-wins {
-    grid-template-columns: 1fr;
-  }
-
-  .live-feed {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-  }
-}
-
-@media (max-width: 640px) {
-  .live-feed {
-    grid-template-columns: 1fr;
-  }
-}
-
 .section {
   margin-top: 24px;
   border: 1px solid var(--line);
@@ -616,13 +603,16 @@ a {
 
 .games {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
   gap: 12px;
   margin-top: 20px;
 }
 
+.games-three {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
 .game {
-  min-height: 240px;
+  min-height: 260px;
   border-radius: 22px;
   padding: 16px;
   border: 1px solid rgba(255, 255, 255, 0.08);
@@ -641,10 +631,13 @@ a {
 }
 
 .game strong {
-  font-size: 32px;
-  line-height: 0.9;
+  display: block;
+  margin-top: 8px;
+  font-size: 30px;
+  line-height: 0.95;
   text-transform: uppercase;
   font-weight: 950;
+  word-break: break-word;
 }
 
 .game .symbol {
@@ -665,12 +658,13 @@ a {
   background: linear-gradient(180deg, rgba(249, 115, 22, 0.22), rgba(0, 0, 0, 0.22));
 }
 
-.g3 {
-  background: linear-gradient(180deg, rgba(168, 85, 247, 0.22), rgba(0, 0, 0, 0.22));
+.coming-soon-card {
+  background: linear-gradient(180deg, rgba(139, 92, 246, 0.22), rgba(0, 0, 0, 0.22));
 }
 
-.g4 {
-  background: linear-gradient(180deg, rgba(245, 158, 11, 0.22), rgba(0, 0, 0, 0.22));
+.coming-soon-card strong {
+  font-size: 24px;
+  line-height: 1.05;
 }
 
 .section-button-row {
@@ -798,7 +792,12 @@ a {
 .cta-final {
   margin: 24px 0 44px;
   border: 1px solid var(--line);
-  background: linear-gradient(90deg, rgba(255, 255, 255, 0.05), rgba(185, 255, 57, 0.06), rgba(139, 92, 246, 0.08));
+  background: linear-gradient(
+    90deg,
+    rgba(255, 255, 255, 0.05),
+    rgba(185, 255, 57, 0.06),
+    rgba(139, 92, 246, 0.08)
+  );
   border-radius: 30px;
   padding: 34px;
   display: flex;
@@ -963,10 +962,6 @@ a {
     grid-template-columns: 1fr;
   }
 
-  .games {
-    grid-template-columns: repeat(2, 1fr);
-  }
-
   .features {
     grid-template-columns: repeat(2, 1fr);
   }
@@ -976,7 +971,15 @@ a {
   }
 
   .live-feed {
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .games-three {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .coming-soon-card {
+    grid-column: 1 / -1;
   }
 
   .cta-final {
@@ -1018,8 +1021,12 @@ a {
     grid-template-columns: 1fr;
   }
 
-  .games {
+  .games-three {
     grid-template-columns: 1fr;
+  }
+
+  .coming-soon-card {
+    grid-column: auto;
   }
 
   .hero p {
