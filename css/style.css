@@ -457,28 +457,30 @@ a {
   box-shadow: 0 0 12px rgba(185, 255, 57, 0.7);
 }
 
-.live-feed {
-  display: grid;
-  grid-template-columns: repeat(5, minmax(0, 1fr));
-  gap: 10px;
+.live-feed-wrap {
+  position: relative;
+  overflow: hidden;
   min-height: 92px;
+  border-radius: 16px;
+}
+
+.live-feed-track {
+  display: flex;
+  align-items: stretch;
+  gap: 10px;
+  will-change: transform;
 }
 
 .live-card {
+  flex: 0 0 145px;
+  min-height: 92px;
   border-radius: 16px;
   border: 1px solid rgba(255, 255, 255, 0.08);
   background: rgba(0, 0, 0, 0.45);
   padding: 14px;
-  min-height: 92px;
   display: flex;
   flex-direction: column;
   justify-content: center;
-  transition: opacity 0.35s ease, transform 0.35s ease;
-}
-
-.live-card.is-entering {
-  opacity: 0;
-  transform: translateY(10px);
 }
 
 .live-card strong {
@@ -486,6 +488,9 @@ a {
   font-size: 16px;
   font-weight: 900;
   color: #fff;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .live-card span {
@@ -503,6 +508,22 @@ a {
   color: var(--lime);
   font-size: 22px;
   font-weight: 950;
+}
+
+@media (max-width: 1100px) {
+  .live-wins {
+    grid-template-columns: 1fr;
+  }
+
+  .live-feed-wrap {
+    min-height: 92px;
+  }
+}
+
+@media (max-width: 640px) {
+  .live-card {
+    flex: 0 0 138px;
+  }
 }
 
 .section {
