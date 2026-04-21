@@ -23,7 +23,6 @@ document.addEventListener("DOMContentLoaded", () => {
   ];
 
   const games = ["Brick", "Solitaire"];
-  let intervalId = null;
 
   function rand(arr) {
     return arr[Math.floor(Math.random() * arr.length)];
@@ -31,9 +30,10 @@ document.addEventListener("DOMContentLoaded", () => {
 
   function getAmount() {
     const r = Math.random();
-    if (r < 0.6) return Math.floor(Math.random() * 31) + 5;   // 5-35
-    if (r < 0.9) return Math.floor(Math.random() * 51) + 35;  // 35-85
-    return Math.floor(Math.random() * 41) + 80;               // 80-120
+
+    if (r < 0.6) return Math.floor(Math.random() * 31) + 5;
+    if (r < 0.9) return Math.floor(Math.random() * 51) + 35;
+    return Math.floor(Math.random() * 41) + 80;
   }
 
   function createCard() {
@@ -55,6 +55,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   function seed() {
     liveWinsFeed.innerHTML = "";
+
     for (let i = 0; i < 5; i++) {
       liveWinsFeed.appendChild(createCard());
     }
@@ -68,11 +69,13 @@ document.addEventListener("DOMContentLoaded", () => {
     first.style.transform = "translateY(-10px)";
 
     setTimeout(() => {
-      if (first.parentNode) first.remove();
+      if (first.parentNode) {
+        first.remove();
+      }
       liveWinsFeed.appendChild(createCard());
     }, 300);
   }
 
   seed();
-  intervalId = setInterval(rotate, 2200);
+  setInterval(rotate, 2200);
 });
